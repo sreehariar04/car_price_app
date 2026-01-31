@@ -3,214 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Price Estimator</title>
+    <title>Vehicle Value Predictor</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Syne:wght@400;800&display=swap" rel="stylesheet">
-    <style>
-        /* --- VARIABLES --- */
-        :root {
-            --bg-color: #f0f0f0;
-            --card-bg: #ffffff;
-            --accent: #FFD028; /* Pop Yellow */
-            --secondary: #9B72FF; /* Pop Purple */
-            --text: #1a1a1a;
-            --border: 3px solid #1a1a1a;
-            --shadow: 8px 8px 0px #1a1a1a;
-            --shadow-hover: 4px 4px 0px #1a1a1a;
-        }
-
-        /* --- BASE STYLES --- */
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-color);
-            /* Dot Pattern Background */
-            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-            background-size: 20px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: var(--text);
-        }
-
-        /* --- CARD CONTAINER --- */
-        .card {
-            background: var(--card-bg);
-            border: var(--border);
-            box-shadow: var(--shadow);
-            padding: 0;
-            width: 100%;
-            max-width: 500px;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        /* --- HEADER SECTION --- */
-        .header {
-            background-color: var(--secondary);
-            padding: 20px;
-            border-bottom: var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        h2 {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 2rem;
-            margin: 0;
-            text-transform: uppercase;
-            color: white;
-            text-shadow: 2px 2px 0px #000;
-            line-height: 1;
-        }
-
-        .badge {
-            background: white;
-            border: 2px solid #000;
-            padding: 5px 10px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            box-shadow: 3px 3px 0px #000;
-        }
-
-        /* --- FORM AREA --- */
-        .form-body {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* --- INPUTS --- */
-        .input-group label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 15px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            border: 2px solid #1a1a1a;
-            background-color: #fff;
-            border-radius: 0; /* Sharp edges */
-            transition: all 0.2s;
-            appearance: none;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            background-color: #fff9e6; /* Light yellow tint */
-            box-shadow: 4px 4px 0px var(--text);
-            transform: translate(-2px, -2px);
-        }
-
-        /* Custom Select Arrow */
-        .select-wrapper {
-            position: relative;
-        }
-        .select-wrapper::after {
-            content: "▼";
-            font-size: 0.8rem;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: #1a1a1a;
-        }
-
-        /* --- BUTTON --- */
-        input[type="submit"] {
-            background-color: var(--accent);
-            color: var(--text);
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            border: var(--border);
-            box-shadow: 6px 6px 0px var(--text);
-            cursor: pointer;
-            margin-top: 10px;
-            padding: 18px;
-        }
-
-        input[type="submit"]:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 4px 4px 0px var(--text);
-            background-color: #ffc400;
-        }
-
-        input[type="submit"]:active {
-            transform: translate(6px, 6px);
-            box-shadow: 0px 0px 0px var(--text);
-        }
-
-        /* --- RESULT BOX --- */
-        .result-box {
-            margin: 30px;
-            background: #1a1a1a;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-family: 'Syne', sans-serif;
-            font-size: 1.2rem;
-            border: 2px solid #1a1a1a;
-            /* Only show if there is text */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 60px;
-        }
-        
-        /* --- MOBILE TWEAKS --- */
-        @media (max-width: 480px) {
-            .card { width: 95%; }
-            .header { flex-direction: column; align-items: flex-start; gap: 10px; }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
     <div class="card">
         <div class="header">
-            <h2>Car Value<br>Predictor</h2>
-            <div class="badge">Model: v1.0</div>
+            <h2>Vehicle Value<br>Predictor</h2>
+            <div class="badge">Model: v2.1</div>
         </div>
         
         <form action="/predict" method="post" class="form-body">
             
-            <div style="display: flex; gap: 20px;">
-                <div class="input-group" style="flex: 1;">
+            <div class="input-group">
+                <label for="car_name">Vehicle Name</label>
+                <input type="text" name="car_name" list="car_list" placeholder="Type to search (e.g. city, fortuner)..." required autocomplete="off">
+                <datalist id="car_list">
+                    {% for car in car_names %}
+                        <option value="{{ car }}">
+                    {% endfor %}
+                </datalist>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group input-half">
                     <label for="year">Year</label>
                     <input type="number" id="year" name="year" required min="1990" max="2030">
                 </div>
-                <div class="input-group" style="flex: 1;">
+                <div class="input-group input-half">
                     <label for="present_price">Price (Lakh)</label>
                     <input type="text" id="present_price" name="present_price" placeholder="5.59" required>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 20px;">
-                <div class="input-group" style="flex: 1;">
+            <div class="form-row">
+                <div class="input-group input-half">
                     <label for="kms_driven">KMs Driven</label>
                     <input type="text" id="kms_driven" name="kms_driven" placeholder="27000" required>
                 </div>
-                <div class="input-group" style="flex: 1;">
+                <div class="input-group input-half">
                     <label for="owner">Owners</label>
                     <input type="number" id="owner" name="owner" placeholder="0" min="0" max="10" required>
                 </div>
