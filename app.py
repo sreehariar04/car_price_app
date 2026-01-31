@@ -5,21 +5,19 @@ import numpy as np
 
 app = Flask(__name__)
 
-# 1. Load Model, Scaler, and the Name Encoder
-
+#load data
 model = pickle.load(open("best_model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 name_encoder = pickle.load(open("name_encoder.pkl", "rb"))
 
 @app.route("/")
 def home():
-    # Get the list of car names to populate the autocomplete list
+    #list of car names
     car_names = list(name_encoder.classes_)
     return render_template("index.html", car_names=car_names)
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    # Always have the list ready for re-rendering the page
     car_names = list(name_encoder.classes_)
 
     if request.method == "POST":
@@ -27,7 +25,7 @@ def predict():
         car_name_input = request.form["car_name"]
         
         
-        # If the user typed a name that isn't in our training data, stop here.
+        #if name is entered otherthan the one present in the data
         if car_name_input not in name_encoder.classes_:
             return render_template('index.html', 
                                    prediction_text="Error: Car name not found. Please pick from the list.", 
@@ -43,7 +41,7 @@ def predict():
         transmission = request.form["transmission"]
 
         
-        # Encode the Car Name using the encoder
+        # Name Encoding
         car_name_encoded = name_encoder.transform([car_name_input])[0]
 
         # Manual One-Hot Encoding 
