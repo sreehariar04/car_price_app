@@ -5,32 +5,31 @@ import numpy as np
 
 app = Flask(__name__)
 
-#load data
+# Load artifacts
 model = pickle.load(open("best_model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 name_encoder = pickle.load(open("name_encoder.pkl", "rb"))
 
 @app.route("/")
 def home():
-    #list of car names
     car_names = list(name_encoder.classes_)
     return render_template("index.html", car_names=car_names)
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    # Helper to ensure dropdown persists on reload
     car_names = list(name_encoder.classes_)
 
     if request.method == "POST":
-       #user input
         car_name_input = request.form["car_name"]
         
-        
-        #if name is entered otherthan the one present in the data
+        # Validation
         if car_name_input not in name_encoder.classes_:
             return render_template('index.html', 
-                                   prediction_text="Error: Car name not found. Please pick from the list.", 
+                                   prediction_text="Error: Car name not found.", 
                                    car_names=car_names)
 
+        # Retrieve form data
         year = int(request.form["year"])
         present_price = float(request.form["present_price"])
         kms_driven = float(request.form["kms_driven"])
@@ -39,18 +38,16 @@ def predict():
         fuel_type = request.form["fuel_type"]
         seller_type = request.form["seller_type"]
         transmission = request.form["transmission"]
-
         
-        # Name Encoding
+        # Encoding
         car_name_encoded = name_encoder.transform([car_name_input])[0]
-
-        # Manual One-Hot Encoding 
+        
         fuel_diesel = 1 if fuel_type == "Diesel" else 0
         fuel_petrol = 1 if fuel_type == "Petrol" else 0
         seller_individual = 1 if seller_type == "Individual" else 0
         trans_manual = 1 if transmission == "Manual" else 0
 
-        #DataFrame with EXACT column order from training
+        # Construct DataFrame
         data_dict = {
             'Car_Name': [car_name_encoded],
             'Year': [year],
@@ -64,16 +61,14 @@ def predict():
         }
         df = pd.DataFrame(data_dict)
         
-        # Scale the data 
+        # Preprocessing & Inference
         final_features = scaler.transform(df)
-
-        #Prediction 
         prediction = model.predict(final_features)
         output = round(prediction[0], 2)
 
         if output < 0:
             return render_template('index.html', 
-                                   prediction_text="Sorry, you cannot sell this car (Negative Value)", 
+                                   prediction_text="Valuation is negative.", 
                                    car_names=car_names)
         else:
             return render_template('index.html', 
