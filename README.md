@@ -107,6 +107,9 @@ The model provides reliable car price predictions and performs well on unseen da
 * Improve UI
 * Deploy the model online
 
+##DEMO : 
+<img src="" alt="Alt text" width="100"/>
+
 ## Author
 
 **Sreehari AR**
