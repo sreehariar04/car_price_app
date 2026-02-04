@@ -5,22 +5,6 @@
 This project predicts the **selling price of used cars** based on various features such as car age, mileage, fuel type, transmission, and ownership details.
 It uses **Machine Learning** to learn patterns from historical car data and estimate a fair market price.
 
-## Dataset
-
-The dataset contains information such as:
-
-* Year of manufacture
-* Present price
-* Kilometers driven
-* Fuel type
-* Seller type
-* Transmission
-* Number of previous owners
-
-Target variable:
-
-* **Selling Price**
-
 ## Steps
 
 1. Data cleaning and preprocessing
@@ -37,14 +21,6 @@ Target variable:
 * Handles non-linear relationships well
 * Robust to outliers
 * Performs well on tabular data
-
-## Evaluation Metrics
-
-Depending on setup:
-
-* R² Score
-* Mean Absolute Error (MAE)
-* Mean Squared Error (MSE)
 
 ## Project Structure
 
@@ -66,7 +42,6 @@ Car_Price/
 ├── README.md
 └── pyvenv.cfg
 ```
-
 
 ## How to Run
 
@@ -111,7 +86,7 @@ The model provides reliable car price predictions and performs well on unseen da
 <img src="https://raw.githubusercontent.com/sreehariar04/car_price_app/refs/heads/main/Recording%202026-02-04%20100751.gif" alt="Alt text" width="600"/>
 
 ## 🔗 Live Demo
-[🚀 Click here to try the app](https://sreehariar04.pythonanywhere.com/predict)
+[🚀 Click here to try the app](https://sreehariar04.pythonanywhere.com/)
 
 ## Author
 
