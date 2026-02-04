@@ -49,6 +49,7 @@ Depending on setup:
 
 ## Project Structure
 
+```bash
 Car_Price/
 │
 ├── static/
@@ -65,6 +66,8 @@ Car_Price/
 ├── name_encoder.pkl       # LabelEncoder for car names
 ├── README.md
 └── pyvenv.cfg
+```
+
 
 ## How to Run
 
