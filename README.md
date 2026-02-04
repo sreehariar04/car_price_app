@@ -1,4 +1,4 @@
-## README.md — Car Price Prediction 🚗💰
+## Car Price Prediction 🚗💰
 ## Car Price Prediction Project
 
 ### Overview
