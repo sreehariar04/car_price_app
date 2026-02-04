@@ -110,6 +110,9 @@ The model provides reliable car price predictions and performs well on unseen da
    
 <img src="https://raw.githubusercontent.com/sreehariar04/car_price_app/refs/heads/main/Recording%202026-02-04%20100751.gif" alt="Alt text" width="600"/>
 
+## 🔗 Live Demo
+[🚀 Click here to try the app](https://sreehariar04.pythonanywhere.com/predict)
+
 ## Author
 
 **Sreehari AR**
