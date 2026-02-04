@@ -1,5 +1,4 @@
-## Car Price Prediction 🚗💰
-## Car Price Prediction Project
+## Vehicle Price Prediction Project
 
 ### Overview
 
