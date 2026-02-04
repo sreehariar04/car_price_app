@@ -108,7 +108,7 @@ The model provides reliable car price predictions and performs well on unseen da
 * Deploy the model online
 
 ##DEMO : 
-<img src="https://github.com/sreehariar04/car_price_app/blob/main/Recording%202026-02-04%20100751.gif" alt="Alt text" width="100"/>
+<img src="https://github.com/sreehariar04/car_price_app/blob/main/Recording%202026-02-04%20100751.gif" alt="Alt text" width="600"/>
 
 ## Author
 
